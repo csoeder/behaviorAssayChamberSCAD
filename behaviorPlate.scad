@@ -76,10 +76,10 @@ module pittedLid(pd,lo,lt,dt){
 
 //translate([-parts_sep,-parts_sep,0]) pittedLid(pit_dia, lip_overhang, lip_thick, lid_thick);
 
-module punches(d,r, wt){
+module punches(d,r, wt, rc){
     cntr = (r + wt/2)*sqrt(2.0); // calculate the centering coord
-    well(0,cntr,d,r);
-    well(0,-cntr,d,r);
+    well(0,cntr,d,r*rc);
+    well(0,-cntr,d,r*rc);
 }
 
 //translate([-parts_sep,-parts_sep,0]) punches(lid_thick, well_rad*rad_cont, wall_thick);
@@ -87,7 +87,7 @@ module punches(d,r, wt){
 module punchedPittedLid(pd,lo,lt,dt,r,rc,wt){
     difference(){
         pittedLid(pd, lo, lt, dt);
-        translate([0,0,-0.9*eps]) punches(dt+2.1*eps, r*rc, wt);
+        translate([0,0,-0.9*eps]) punches(dt+2.1*eps, r, wt,rc);
     }
 }
 
