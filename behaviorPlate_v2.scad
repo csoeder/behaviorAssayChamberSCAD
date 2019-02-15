@@ -28,9 +28,8 @@ rad_cont = 0.6; // rc: how much smaller is the entry port than the well? Also co
 //  // groove config
 grv_rad = 45.8; // radius of groove
 //grv_dpth = lip_overhang/2; // depth of groove (in this case, also half the width of the groove)
-grv_wdth = 3.5;
+grv_wdth =4;
 grv_dpth = grv_wdth/2;
-
 
 // define a well
 module well(x,y,d,r){
@@ -98,16 +97,16 @@ module punchedStage(r,wt,lo,rc){
 }
 
 
-module groove(gr, gd){
-    rotate_extrude() translate([gr, 0, 0]) circle(r = gd, $fn = hewn);
+module groove(gr, gd, gw){
+    rotate_extrude() translate([gr, 0, 0]) scale([gw,gd,1]) circle(r = 1/2, $fn = hewn);
 }
 
 
-module groovyPunchedStage(r,wt,lo,rc,gr,gd){
+module groovyPunchedStage(r,wt,lo,rc,gr,gd,gw){
 
     difference(){
         punchedStage(r, wt, lo, rc);
-        translate([0,0,lo]) groove(gr, gd);
+        translate([0,0,lo]) groove(gr, gd,gw);
     }
     
     
@@ -117,6 +116,6 @@ module groovyPunchedStage(r,wt,lo,rc,gr,gd){
 
 translate([parts_sep,parts_sep,bottom_thick+eps])  allYourBase(well_depth, well_rad, wall_thick, bottom_thick, lip_thick, lip_overhang);
 
- translate([-parts_sep,-parts_sep,0])groovyPunchedStage(well_rad,wall_thick,lip_overhang, rad_cont, grv_rad, grv_dpth);
+ translate([-parts_sep,-parts_sep,0])groovyPunchedStage(well_rad,wall_thick,lip_overhang, rad_cont, grv_rad, grv_dpth, grv_wdth);
 
 
