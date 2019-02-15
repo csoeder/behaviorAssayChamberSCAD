@@ -40,10 +40,16 @@ module well(x,y,d,r){
 // define four evenly spaced wells
 module allswell(d,r, wt){
     cntr = (r + wt/2)*sqrt(2.0); // calculate the centering coord
+    union(){
     well(0,cntr,d,r);
     well(0,-cntr,d,r);
     well(cntr,0,d,r);
-    well(-cntr,0,d,r);
+    well(-cntr,0,d,r);}
+   translate([0,0,-(2*bottom_thick+eps)]) union() {well(-cntr,0,d,rad_cont*r);
+       well(cntr,0,d,rad_cont*r);
+       well(0,-cntr,d,rad_cont*r);
+       well(0,cntr,d,rad_cont*r);
+   }
 }
 
 // define the Big Disk holding the wells
@@ -58,6 +64,12 @@ module stage(r,wt,lo){
 }
 
 
+module punches(d,r,wt,rc){
+    cntr = (r + wt/2)*sqrt(2.0); // calculate the centering coord
+    well(0,cntr,d,r*rc);
+    well(0,-cntr,d,r*rc);
+}
+
 //well(0,0,well_depth, well_rad);
 
 //allswell(well_depth, well_rad, wall_thick);
@@ -65,21 +77,18 @@ module stage(r,wt,lo){
 //metawell(well_depth, well_rad, wall_thick, bottom_thick);
     
 module allYourBase(d, r, wt, bt, lt, lo){
+
     difference(){
         difference(){
             metawell(d, r, wt, bt, lt, lo);
             allswell(d, r, wt);// scoop the food wells out
     }
-    translate([0,0,well_depth-eps]) stage( r, wt+2*eps, lo); // scoop out the stage pit
-}
-}
 
+        translate([0,0,well_depth-eps]) stage( r, wt+2*eps, lo); // scoop out the stage pit
 
-module punches(d,r,wt,rc){
-    cntr = (r + wt/2)*sqrt(2.0); // calculate the centering coord
-    well(0,cntr,d,r*rc);
-    well(0,-cntr,d,r*rc);
+    }
 }
+       
 
 module punchedStage(r,wt,lo,rc){
     difference(){
@@ -109,4 +118,5 @@ module groovyPunchedStage(r,wt,lo,rc,gr,gd){
 translate([parts_sep,parts_sep,bottom_thick+eps])  allYourBase(well_depth, well_rad, wall_thick, bottom_thick, lip_thick, lip_overhang);
 
  translate([-parts_sep,-parts_sep,0])groovyPunchedStage(well_rad,wall_thick,lip_overhang, rad_cont, grv_rad, grv_dpth);
+
 
