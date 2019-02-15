@@ -12,6 +12,7 @@ hewn=20; // how fine should the models be? small for protyping, large for rendin
 well_dia = 40.5; // diameter of the food well. Currently set to contain a 3.5 cm petri dish & allow for a 3.8 cm cover to be added while in well
 well_rad = well_dia/2; // r: radius of the food well
 well_depth=11; // depth of the food well. Currently set to fit flush against the top of a 1.1 cm petri dish.
+
 //
 //  //  wall config
 wall_thick = 3; // wt: wall thickness between wells
@@ -22,7 +23,7 @@ lip_thick = 2; // lt: how far past the base does the lip extend?
 lip_overhang = 2; // lo: how far down the base does the lip extend?
 //
 //  stage config
-rad_cont = 0.6; // rc: how much smaller is the entry port than the well?
+rad_cont = 0.6; // rc: how much smaller is the entry port than the well? Also controls the under-well access spots atm
 //
 //  // groove config
 grv_rad = 45.8; // radius of groove
@@ -105,7 +106,7 @@ module groovyPunchedStage(r,wt,lo,rc,gr,gd){
 
 
 
-translate([parts_sep,parts_sep,0])  allYourBase(well_depth, well_rad, wall_thick, bottom_thick, lip_thick, lip_overhang);
+translate([parts_sep,parts_sep,bottom_thick+eps])  allYourBase(well_depth, well_rad, wall_thick, bottom_thick, lip_thick, lip_overhang);
 
  translate([-parts_sep,-parts_sep,0])groovyPunchedStage(well_rad,wall_thick,lip_overhang, rad_cont, grv_rad, grv_dpth);
 
