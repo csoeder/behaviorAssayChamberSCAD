@@ -4,7 +4,7 @@
 //global config
 parts_sep = 40; // how much to separate the top and base
 eps =0.1; // nudge amount
-hewn=20; // how fine should the models be? small for protyping, large for rending
+hewn=250; // how fine should the models be? small for protyping, large for rending
 //
 //  base config
 //
@@ -16,7 +16,7 @@ well_depth=11; // depth of the food well. Currently set to fit flush against the
 //
 //  //  wall config
 wall_thick = 3; // wt: wall thickness between wells
-bottom_thick = wall_thick; // the thickness of the bottom of the disk
+bottom_thick = 6.05;//wall_thick; // the thickness of the bottom of the disk
 //
 //  //  lip config
 lip_thick = 2; // lt: how far past the base does the lip extend?
@@ -44,7 +44,8 @@ module allswell(d,r, wt){
     well(0,-cntr,d,r);
     well(cntr,0,d,r);
     well(-cntr,0,d,r);}
-   translate([0,0,-(2*bottom_thick+eps)]) union() {well(-cntr,0,d,rad_cont*r);
+   translate([0,0,-(bottom_thick+2*eps)]) union() {
+       well(-cntr,0,d,rad_cont*r);
        well(cntr,0,d,rad_cont*r);
        well(0,-cntr,d,rad_cont*r);
        well(0,cntr,d,rad_cont*r);
