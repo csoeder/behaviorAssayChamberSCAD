@@ -1,0 +1,1 @@
+Assembly clips are still untested/not functional; you can wedge anything in their place though and it should work
