@@ -16,6 +16,7 @@ Requires fabrication of: one base, two sliders, and four assembly clips (optiona
 
 # Directory
 
+```
 ├── foodChoiceChamber
 │   ├── dev
 │   │   └ (earlier versions)
@@ -32,3 +33,4 @@ Requires fabrication of: one base, two sliders, and four assembly clips (optiona
 │   └── utils
 │   │   └ (supporting modules)
 └── README.md
+```
